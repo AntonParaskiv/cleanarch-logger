@@ -1,6 +1,7 @@
 package logger
 
 const (
+	LogLevelNone  = 0         // 0
 	_             = 1 << iota // 1
 	_             = 1 << iota // 2
 	LogLevelFatal = 1 << iota // 4
@@ -10,7 +11,8 @@ const (
 	LogLevelInfo  = 1 << iota // 64
 	LogLevelDebug = 1 << iota // 128
 
-	LogLevelMaskAll           = -1 // all bits is 1
+	LogLevelMaskAll = -1 // all bits are 1
+
 	LogLevelMaskDebugInfoWarn = LogLevelDebug | LogLevelInfo | LogLevelWarn
 	LogLevelMaskInfoWarn      = LogLevelInfo | LogLevelWarn
 	LogLevelMaskErrorFatal    = LogLevelError | LogLevelFatal

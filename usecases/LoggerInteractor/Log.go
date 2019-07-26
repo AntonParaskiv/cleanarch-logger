@@ -1,4 +1,4 @@
-package usecases
+package LoggerInteractor
 
 import (
 	"fmt"
@@ -7,21 +7,22 @@ import (
 	"time"
 )
 
-type LoggerRepository interface {
-	Log(level int, time time.Time, message string) (err error)
-	GetName() (name string)
-}
-
-type LoggerInteractor struct {
-	Repositories []LoggerRepository
-	logLevel     int
-}
-
-func NewLoggerInteractor(repositories []LoggerRepository, logLevel int) (i *LoggerInteractor) {
-	i = new(LoggerInteractor)
-	i.Repositories = repositories
-	i.logLevel = logLevel
+func (i *LoggerInteractor) log(level int, message string) {
+	if i.logLevel&level == level {
+		timeNow := time.Now()
+		for _, repo := range i.repositories {
+			if err := repo.Log(level, timeNow, message); err != nil {
+				err = errors.Errorf("%s %s", repo.GetName(), err.Error())
+				fmt.Println(err)
+			}
+		}
+	}
 	return
+}
+
+func (i *LoggerInteractor) logf(level int, format string, a ...interface{}) {
+	message := fmt.Sprintf(format, a...)
+	i.log(level, message)
 }
 
 func (i *LoggerInteractor) Debug(message string) {
@@ -62,22 +63,4 @@ func (i *LoggerInteractor) Fatal(message string) {
 
 func (i *LoggerInteractor) Fatalf(format string, a ...interface{}) {
 	i.logf(domain.LogLevelFatal, format, a...)
-}
-
-func (i *LoggerInteractor) log(level int, message string) {
-	if i.logLevel&level == level {
-		timeNow := time.Now()
-		for _, repo := range i.Repositories {
-			if err := repo.Log(level, timeNow, message); err != nil {
-				err = errors.New(repo.GetName() + " " + err.Error())
-				fmt.Println(err)
-			}
-		}
-	}
-	return
-}
-
-func (i *LoggerInteractor) logf(level int, format string, a ...interface{}) {
-	message := fmt.Sprintf(format, a...)
-	i.log(level, message)
 }

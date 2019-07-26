@@ -1,4 +1,4 @@
-package logger
+package LoggerRepositoryJson
 
 import (
 	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
@@ -16,7 +16,7 @@ const (
 
 var (
 	logJsonStorageMock *LoggerStorageMock
-	logJsonRepository  *LogJsonRepository
+	logJsonRepository  *LoggerRepository
 )
 
 func TestNewLogJsonRepository(t *testing.T) {
@@ -24,7 +24,7 @@ func TestNewLogJsonRepository(t *testing.T) {
 	logJsonStorageMock = new(LoggerStorageMock)
 
 	// create log json repository
-	logJsonRepository = NewLogJsonRepository(logJsonRepoName, logJsonStorageMock, logJsonRepoLevel, logJsonRepoPrefix, logJsonRepoTimeFormat)
+	logJsonRepository = New(logJsonRepoName, logJsonStorageMock, logJsonRepoLevel, logJsonRepoPrefix, logJsonRepoTimeFormat)
 	if logJsonRepository.name != logJsonRepoName {
 		t.Error("logJsonRepository name is not match")
 		return

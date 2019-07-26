@@ -1,4 +1,4 @@
-package usecases
+package LoggerInteractor
 
 import (
 	"fmt"
@@ -49,10 +49,10 @@ func TestNewLoggerInteractor(t *testing.T) {
 	}
 
 	// create interactor
-	loggerInteractor = NewLoggerInteractor(repositories, loggerInteractorLogLevel)
+	loggerInteractor = New(repositories, loggerInteractorLogLevel)
 
 	// check properties
-	if !reflect.DeepEqual(loggerInteractor.Repositories, repositories) {
+	if !reflect.DeepEqual(loggerInteractor.repositories, repositories) {
 		t.Error("interactor repositories are not match")
 		return
 	}
