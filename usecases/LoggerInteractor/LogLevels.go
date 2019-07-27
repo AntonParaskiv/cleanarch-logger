@@ -59,6 +59,16 @@ func (i *LoggerInteractor) RemoveLogLevelFatal() *LoggerInteractor {
 	return i
 }
 
+func (i *LoggerInteractor) SetLogLevelAll() *LoggerInteractor {
+	i.SetLogLevelNone()
+	i.AddLogLevelDebug()
+	i.AddLogLevelInfo()
+	i.AddLogLevelWarn()
+	i.AddLogLevelError()
+	i.AddLogLevelFatal()
+	return i
+}
+
 func (i *LoggerInteractor) SetLogLevelDebugInfoWarn() *LoggerInteractor {
 	i.SetLogLevelNone()
 	i.AddLogLevelDebug()

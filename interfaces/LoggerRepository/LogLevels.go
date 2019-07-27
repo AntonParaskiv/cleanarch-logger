@@ -59,6 +59,16 @@ func (r *LoggerRepository) RemoveLogLevelFatal() *LoggerRepository {
 	return r
 }
 
+func (i *LoggerRepository) SetLogLevelAll() *LoggerRepository {
+	i.SetLogLevelNone()
+	i.AddLogLevelDebug()
+	i.AddLogLevelInfo()
+	i.AddLogLevelWarn()
+	i.AddLogLevelError()
+	i.AddLogLevelFatal()
+	return i
+}
+
 func (r *LoggerRepository) SetLogLevelDebugInfoWarn() *LoggerRepository {
 	r.SetLogLevelNone()
 	r.AddLogLevelDebug()
