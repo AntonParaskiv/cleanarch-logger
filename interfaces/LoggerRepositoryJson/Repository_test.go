@@ -1,7 +1,7 @@
 package LoggerRepositoryJson
 
 import (
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
+	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 	"strings"
 	"testing"
 	"time"

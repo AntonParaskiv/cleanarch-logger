@@ -2,7 +2,7 @@ package LoggerInteractor
 
 import (
 	"fmt"
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
+	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 	"github.com/pkg/errors"
 	"reflect"
 	"testing"
@@ -128,7 +128,7 @@ func TestLoggerInteractor_logf(t *testing.T) {
 
 // must debugMode successful
 func TestLoggerInteractor_Debug(t *testing.T) {
-	loggerInteractor.logLevel = domain.LogLevelMaskAll
+	loggerInteractor.logLevel = domain.LogLevelAllBits
 
 	// Log message
 	message := "debugMode"

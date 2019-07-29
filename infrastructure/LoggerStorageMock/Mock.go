@@ -1,13 +1,11 @@
-package FileMock
+package LoggerStorageMock
 
 import "github.com/pkg/errors"
 
 const ErrorSimulated = "simulated error"
 
 type Mock struct {
-	Fdescr            uintptr
-	Name              string
-	Buffer            []byte
+	Message           string
 	SimulateErrorFlag bool
 }
 
@@ -16,18 +14,13 @@ func New() (m *Mock) {
 	return
 }
 
-func (m *Mock) Write(b []byte) (n int, err error) {
+func (m *Mock) Send(message string) (err error) {
 	if m.SimulateErrorFlag {
-		return 0, m.Error()
+		return m.Error()
 	}
 
-	m.Buffer = b
-	n = len(b)
+	m.Message = message
 	return
-}
-
-func (m *Mock) Fd() uintptr {
-	return m.Fdescr
 }
 
 func (m *Mock) SimulateError() *Mock {

@@ -2,7 +2,7 @@ package LoggerInteractor
 
 import (
 	"fmt"
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
+	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 	"github.com/pkg/errors"
 	"time"
 )

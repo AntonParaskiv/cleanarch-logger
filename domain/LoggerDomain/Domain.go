@@ -1,4 +1,4 @@
-package logger
+package LoggerDomain
 
 const (
 	LogLevelNone  = 0         // 0
@@ -11,9 +11,9 @@ const (
 	LogLevelInfo  = 1 << iota // 64
 	LogLevelDebug = 1 << iota // 128
 
-	LogLevelMaskAll = -1 // all bits are 1
+	LogLevelAllBits = -1 // all bits are 1
 
-	LogLevelMaskDebugInfoWarn = LogLevelDebug | LogLevelInfo | LogLevelWarn
-	LogLevelMaskInfoWarn      = LogLevelInfo | LogLevelWarn
-	LogLevelMaskErrorFatal    = LogLevelError | LogLevelFatal
+	//LogLevelMaskDebugInfoWarn = LogLevelDebug | LogLevelInfo | LogLevelWarn
+	//LogLevelMaskInfoWarn      = LogLevelInfo | LogLevelWarn
+	//LogLevelMaskErrorFatal    = LogLevelError | LogLevelFatal
 )

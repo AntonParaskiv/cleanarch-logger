@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (r *LoggerRepository) Log(level int, time time.Time, message string) (err error) {
+func (r *Repository) Log(level int, time time.Time, message string) (err error) {
 	if r.logLevel&level == level {
 		message = strings.Trim(message, " \t\r\n") + "\n"
 

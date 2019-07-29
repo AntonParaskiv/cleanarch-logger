@@ -35,7 +35,7 @@ func TestStorage_Send(t *testing.T) {
 			},
 		},
 		{
-			name: "Err",
+			name: "Error",
 			fields: fields{
 				stream: FileMock.New().SimulateError(),
 			},
@@ -61,7 +61,6 @@ func TestStorage_Send(t *testing.T) {
 			if !reflect.DeepEqual(s, tt.wantStorage) {
 				t.Errorf("Storage = %v, want %v", s, tt.wantStorage)
 			}
-
 		})
 	}
 }

@@ -1,53 +1,53 @@
 package LoggerRepository
 
 import (
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
+	"github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 	"time"
 )
 
 var logLevelTitle = map[int]string{
-	domain.LogLevelFatal: "[  FATAL  ]",
-	domain.LogLevelError: "[  ERROR  ]",
-	domain.LogLevelWarn:  "[ WARNING ]",
-	domain.LogLevelInfo:  "[  INFO   ]",
-	domain.LogLevelDebug: "[  DEBUG  ]",
+	LoggerDomain.LogLevelFatal: "[  FATAL  ]",
+	LoggerDomain.LogLevelError: "[  ERROR  ]",
+	LoggerDomain.LogLevelWarn:  "[ WARNING ]",
+	LoggerDomain.LogLevelInfo:  "[  INFO   ]",
+	LoggerDomain.LogLevelDebug: "[  DEBUG  ]",
 }
 
-type LoggerStorage interface {
+type Storage interface {
 	Send(message string) (err error)
 }
 
-type LoggerRepository struct {
+type Repository struct {
 	name       string
-	storage    LoggerStorage
+	storage    Storage
 	logLevel   int
 	prefix     string
 	timeFormat string
 }
 
-func New(storage LoggerStorage) (r *LoggerRepository) {
-	r = new(LoggerRepository)
+func New(storage Storage) (r *Repository) {
+	r = new(Repository)
 	r.storage = storage
 	r.SetLogLevelNone()
 	r.timeFormat = time.Stamp
 	return
 }
 
-func (r *LoggerRepository) SetName(name string) *LoggerRepository {
+func (r *Repository) SetName(name string) *Repository {
 	r.name = name
 	return r
 }
 
-func (r *LoggerRepository) SetPrefix(prefix string) *LoggerRepository {
+func (r *Repository) SetPrefix(prefix string) *Repository {
 	r.prefix = prefix
 	return r
 }
 
-func (r *LoggerRepository) SetTimeFormat(timeFormat string) *LoggerRepository {
+func (r *Repository) SetTimeFormat(timeFormat string) *Repository {
 	r.timeFormat = timeFormat
 	return r
 }
 
-func (r *LoggerRepository) GetName() (name string) {
+func (r *Repository) GetName() (name string) {
 	return r.name
 }

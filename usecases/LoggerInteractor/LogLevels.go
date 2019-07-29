@@ -1,7 +1,7 @@
 package LoggerInteractor
 
 import (
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/logger"
+	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 )
 
 func (i *LoggerInteractor) SetLogLevelNone() *LoggerInteractor {
