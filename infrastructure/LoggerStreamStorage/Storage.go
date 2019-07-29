@@ -5,8 +5,13 @@ import (
 	"os"
 )
 
+type File interface {
+	Write(b []byte) (n int, err error)
+	Fd() uintptr
+}
+
 type Storage struct {
-	stream *os.File
+	stream File
 }
 
 func New(stream *os.File) (s *Storage) {
@@ -18,7 +23,7 @@ func New(stream *os.File) (s *Storage) {
 func NewFromFileName(fileName string, perm os.FileMode) (storage *Storage, err error) {
 	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND|os.O_CREATE, perm)
 	if err != nil {
-		err = errors.Errorf("open file failed: %", err.Error())
+		err = errors.Errorf("open file failed: %s", err.Error())
 		return
 	}
 

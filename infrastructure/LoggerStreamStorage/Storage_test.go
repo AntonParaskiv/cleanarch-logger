@@ -1,73 +1,83 @@
 package LoggerStreamStorage
 
-//import (
-//	"errors"
-//	"io/ioutil"
-//	"os"
-//	"testing"
-//)
-//
-//const (
-//	testFileStreamName    = "/tmp/loggerStdStreamStorage.test.log"
-//	testFileStreamPerm    = 0644
-//	testFileStreamMessage = "abrakadbra"
-//)
-//
-//var (
-//	testStream    *os.File
-//	streamStorage *Storage
-//)
-//
-//func TestNewStdStreamStorage(t *testing.T) {
-//	var err error
-//
-//	// if exist - remove file
-//	if _, err = os.Stat(testFileStreamName); err == nil {
-//		if err = os.Remove(testFileStreamName); err != nil {
-//			t.Error("file exist and remove failed: " + err.Error())
-//			return
-//		}
-//	}
-//
-//	// create file
-//	testStream, err = os.OpenFile(testFileStreamName, os.O_RDWR|os.O_APPEND|os.O_CREATE, testFileStreamPerm)
-//	if err != nil {
-//		err = errors.New("open file failed: " + err.Error())
-//		return
-//	}
-//
-//	// create stream
-//	streamStorage = New(testStream)
-//	if streamStorage.stream != testStream {
-//		t.Error("streams is not match")
-//		return
-//	}
-//
-//}
-//
-//func TestStdStreamStorage_Send(t *testing.T) {
-//	var err error
-//
-//	// send message
-//	if err = streamStorage.Send(testFileStreamMessage); err != nil {
-//		t.Error("send method failed: " + err.Error())
-//		return
-//	}
-//
-//	// check read file
-//	if _, err = streamStorage.stream.Seek(0, 0); err != nil {
-//		t.Error("stream seek to start failed: " + err.Error())
-//		return
-//	}
-//	fileContent, err := ioutil.ReadAll(streamStorage.stream)
-//	if err != nil {
-//		t.Error("read stream failed: " + err.Error())
-//		return
-//	}
-//
-//	// compare content
-//	if string(fileContent) != testFileStreamMessage {
-//		t.Error("content is not match")
-//		return
-//	}
-//}
+import (
+	"os"
+	"reflect"
+	"testing"
+)
+
+func TestNew(t *testing.T) {
+	type args struct {
+		stream *os.File
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantS *Storage
+	}{
+		{
+			name: "Success",
+			args: args{
+				stream: os.Stdout,
+			},
+			wantS: &Storage{
+				stream: os.Stdout,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotS := New(tt.args.stream); !reflect.DeepEqual(gotS, tt.wantS) {
+				t.Errorf("New() = %v, want %v", gotS, tt.wantS)
+			}
+		})
+	}
+}
+
+func TestNewFromFileName(t *testing.T) {
+	type args struct {
+		fileName string
+		perm     os.FileMode
+	}
+	tests := []struct {
+		name                string
+		args                args
+		wantStorageFileName string
+		wantErr             bool
+		wantStorage         *Storage
+	}{
+		{
+			name: "Success",
+			args: args{
+				fileName: "/tmp/LoggerStreamStorage_TestNewFromFileName.log",
+				perm:     0777,
+			},
+			wantStorageFileName: "/tmp/LoggerStreamStorage_TestNewFromFileName.log",
+		},
+		{
+			name: "Err",
+			args: args{
+				fileName: "/",
+				perm:     0777,
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotStorage, err := NewFromFileName(tt.args.fileName, tt.args.perm)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NewFromFileName() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if err == nil {
+				tt.wantStorage = &Storage{
+					stream: os.NewFile(gotStorage.stream.Fd(), tt.wantStorageFileName),
+				}
+			}
+			if !reflect.DeepEqual(gotStorage, tt.wantStorage) {
+				t.Errorf("NewFromFileName() = %v, want %v", gotStorage, tt.wantStorage)
+			}
+		})
+	}
+}
