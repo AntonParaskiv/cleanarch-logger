@@ -1,65 +1,65 @@
 package LoggerRepositoryJson
 
 import (
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
+	"github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 )
 
-func (r *LoggerRepository) SetLogLevelNone() *LoggerRepository {
-	r.logLevel = domain.LogLevelNone
+func (r *Repository) SetLogLevelNone() *Repository {
+	r.logLevel = LoggerDomain.LogLevelNone
 	return r
 }
 
-func (r *LoggerRepository) AddLogLevelDebug() *LoggerRepository {
-	r.logLevel += domain.LogLevelDebug
+func (r *Repository) AddLogLevelDebug() *Repository {
+	r.logLevel = r.logLevel | LoggerDomain.LogLevelDebug
 	return r
 }
 
-func (r *LoggerRepository) AddLogLevelInfo() *LoggerRepository {
-	r.logLevel += domain.LogLevelInfo
+func (r *Repository) AddLogLevelInfo() *Repository {
+	r.logLevel = r.logLevel | LoggerDomain.LogLevelInfo
 	return r
 }
 
-func (r *LoggerRepository) AddLogLevelWarn() *LoggerRepository {
-	r.logLevel += domain.LogLevelWarn
+func (r *Repository) AddLogLevelWarn() *Repository {
+	r.logLevel = r.logLevel | LoggerDomain.LogLevelWarn
 	return r
 }
 
-func (r *LoggerRepository) AddLogLevelError() *LoggerRepository {
-	r.logLevel += domain.LogLevelError
+func (r *Repository) AddLogLevelError() *Repository {
+	r.logLevel = r.logLevel | LoggerDomain.LogLevelError
 	return r
 }
 
-func (r *LoggerRepository) AddLogLevelFatal() *LoggerRepository {
-	r.logLevel += domain.LogLevelFatal
+func (r *Repository) AddLogLevelFatal() *Repository {
+	r.logLevel = r.logLevel | LoggerDomain.LogLevelFatal
 	return r
 }
 
-func (r *LoggerRepository) RemoveLogLevelDebug() *LoggerRepository {
-	r.logLevel -= domain.LogLevelDebug
+func (r *Repository) RemoveLogLevelDebug() *Repository {
+	r.logLevel = r.logLevel &^ LoggerDomain.LogLevelDebug
 	return r
 }
 
-func (r *LoggerRepository) RemoveLogLevelInfo() *LoggerRepository {
-	r.logLevel -= domain.LogLevelInfo
+func (r *Repository) RemoveLogLevelInfo() *Repository {
+	r.logLevel = r.logLevel &^ LoggerDomain.LogLevelInfo
 	return r
 }
 
-func (r *LoggerRepository) RemoveLogLevelWarn() *LoggerRepository {
-	r.logLevel -= domain.LogLevelWarn
+func (r *Repository) RemoveLogLevelWarn() *Repository {
+	r.logLevel = r.logLevel &^ LoggerDomain.LogLevelWarn
 	return r
 }
 
-func (r *LoggerRepository) RemoveLogLevelError() *LoggerRepository {
-	r.logLevel -= domain.LogLevelError
+func (r *Repository) RemoveLogLevelError() *Repository {
+	r.logLevel = r.logLevel &^ LoggerDomain.LogLevelError
 	return r
 }
 
-func (r *LoggerRepository) RemoveLogLevelFatal() *LoggerRepository {
-	r.logLevel -= domain.LogLevelFatal
+func (r *Repository) RemoveLogLevelFatal() *Repository {
+	r.logLevel = r.logLevel &^ LoggerDomain.LogLevelFatal
 	return r
 }
 
-func (i *LoggerRepository) SetLogLevelAll() *LoggerRepository {
+func (i *Repository) SetLogLevelAll() *Repository {
 	i.SetLogLevelNone()
 	i.AddLogLevelDebug()
 	i.AddLogLevelInfo()
@@ -69,7 +69,7 @@ func (i *LoggerRepository) SetLogLevelAll() *LoggerRepository {
 	return i
 }
 
-func (r *LoggerRepository) SetLogLevelDebugInfoWarn() *LoggerRepository {
+func (r *Repository) SetLogLevelDebugInfoWarn() *Repository {
 	r.SetLogLevelNone()
 	r.AddLogLevelDebug()
 	r.AddLogLevelInfo()
@@ -77,14 +77,14 @@ func (r *LoggerRepository) SetLogLevelDebugInfoWarn() *LoggerRepository {
 	return r
 }
 
-func (r *LoggerRepository) SetLogLevelInfoWarn() *LoggerRepository {
+func (r *Repository) SetLogLevelInfoWarn() *Repository {
 	r.SetLogLevelNone()
 	r.AddLogLevelInfo()
 	r.AddLogLevelWarn()
 	return r
 }
 
-func (r *LoggerRepository) SetLogLevelErrorFatal() *LoggerRepository {
+func (r *Repository) SetLogLevelErrorFatal() *Repository {
 	r.SetLogLevelNone()
 	r.AddLogLevelError()
 	r.AddLogLevelFatal()

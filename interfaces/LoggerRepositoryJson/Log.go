@@ -13,7 +13,7 @@ type LogMessage struct {
 	Message   string `json:"message,omitempty"`
 }
 
-func (r *LoggerRepository) Log(level int, time time.Time, message string) (err error) {
+func (r *Repository) Log(level int, time time.Time, message string) (err error) {
 	if r.logLevel&level == level {
 		logMessage := LogMessage{}
 
@@ -32,8 +32,9 @@ func (r *LoggerRepository) Log(level int, time time.Time, message string) (err e
 			logMessage.Timestamp = time.Format(r.timeFormat)
 		}
 
-		jsn, err := json.Marshal(logMessage)
-		if err == nil {
+		var jsn []byte
+		jsn, err = json.Marshal(logMessage)
+		if err != nil {
 			err = errors.Errorf("message marshal failed: %s", err.Error())
 			return
 		}
