@@ -4,62 +4,62 @@ import (
 	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 )
 
-func (i *LoggerInteractor) SetLogLevelNone() *LoggerInteractor {
+func (i *Interactor) SetLogLevelNone() *Interactor {
 	i.logLevel = domain.LogLevelNone
 	return i
 }
 
-func (i *LoggerInteractor) AddLogLevelDebug() *LoggerInteractor {
+func (i *Interactor) AddLogLevelDebug() *Interactor {
 	i.logLevel += domain.LogLevelDebug
 	return i
 }
 
-func (i *LoggerInteractor) AddLogLevelInfo() *LoggerInteractor {
+func (i *Interactor) AddLogLevelInfo() *Interactor {
 	i.logLevel += domain.LogLevelInfo
 	return i
 }
 
-func (i *LoggerInteractor) AddLogLevelWarn() *LoggerInteractor {
+func (i *Interactor) AddLogLevelWarn() *Interactor {
 	i.logLevel += domain.LogLevelWarn
 	return i
 }
 
-func (i *LoggerInteractor) AddLogLevelError() *LoggerInteractor {
+func (i *Interactor) AddLogLevelError() *Interactor {
 	i.logLevel += domain.LogLevelError
 	return i
 }
 
-func (i *LoggerInteractor) AddLogLevelFatal() *LoggerInteractor {
+func (i *Interactor) AddLogLevelFatal() *Interactor {
 	i.logLevel += domain.LogLevelFatal
 	return i
 }
 
-func (i *LoggerInteractor) RemoveLogLevelDebug() *LoggerInteractor {
+func (i *Interactor) RemoveLogLevelDebug() *Interactor {
 	i.logLevel -= domain.LogLevelDebug
 	return i
 }
 
-func (i *LoggerInteractor) RemoveLogLevelInfo() *LoggerInteractor {
+func (i *Interactor) RemoveLogLevelInfo() *Interactor {
 	i.logLevel -= domain.LogLevelInfo
 	return i
 }
 
-func (i *LoggerInteractor) RemoveLogLevelWarn() *LoggerInteractor {
+func (i *Interactor) RemoveLogLevelWarn() *Interactor {
 	i.logLevel -= domain.LogLevelWarn
 	return i
 }
 
-func (i *LoggerInteractor) RemoveLogLevelError() *LoggerInteractor {
+func (i *Interactor) RemoveLogLevelError() *Interactor {
 	i.logLevel -= domain.LogLevelError
 	return i
 }
 
-func (i *LoggerInteractor) RemoveLogLevelFatal() *LoggerInteractor {
+func (i *Interactor) RemoveLogLevelFatal() *Interactor {
 	i.logLevel -= domain.LogLevelFatal
 	return i
 }
 
-func (i *LoggerInteractor) SetLogLevelAll() *LoggerInteractor {
+func (i *Interactor) SetLogLevelAll() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelDebug()
 	i.AddLogLevelInfo()
@@ -69,7 +69,7 @@ func (i *LoggerInteractor) SetLogLevelAll() *LoggerInteractor {
 	return i
 }
 
-func (i *LoggerInteractor) SetLogLevelDebugInfoWarn() *LoggerInteractor {
+func (i *Interactor) SetLogLevelDebugInfoWarn() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelDebug()
 	i.AddLogLevelInfo()
@@ -77,14 +77,14 @@ func (i *LoggerInteractor) SetLogLevelDebugInfoWarn() *LoggerInteractor {
 	return i
 }
 
-func (i *LoggerInteractor) SetLogLevelInfoWarn() *LoggerInteractor {
+func (i *Interactor) SetLogLevelInfoWarn() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelInfo()
 	i.AddLogLevelWarn()
 	return i
 }
 
-func (i *LoggerInteractor) SetLogLevelErrorFatal() *LoggerInteractor {
+func (i *Interactor) SetLogLevelErrorFatal() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelError()
 	i.AddLogLevelFatal()

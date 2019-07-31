@@ -1,11 +1,11 @@
 package LoggerInteractor
 
-func (i *LoggerInteractor) AddRepository(repository LoggerRepository) *LoggerInteractor {
+func (i *Interactor) AddRepository(repository Repository) *Interactor {
 	i.repositories[repository.GetName()] = repository
 	return i
 }
 
-func (i *LoggerInteractor) ClearRepositories() *LoggerInteractor {
-	i.repositories = make(map[string]LoggerRepository)
+func (i *Interactor) ClearRepositories() *Interactor {
+	i.repositories = make(map[string]Repository)
 	return i
 }

@@ -4,24 +4,24 @@ import (
 	"time"
 )
 
-type LoggerRepository interface {
+type Repository interface {
 	Log(level int, time time.Time, message string) (err error)
 	GetName() (name string)
 }
 
-type LoggerInteractor struct {
-	repositories map[string]LoggerRepository
+type Interactor struct {
+	repositories map[string]Repository
 	logLevel     int
 }
 
-func New() (i *LoggerInteractor) {
-	i = new(LoggerInteractor)
-	i.repositories = make(map[string]LoggerRepository)
+func New() (i *Interactor) {
+	i = new(Interactor)
+	i.repositories = make(map[string]Repository)
 	i.SetLogLevelNone()
 	return
 }
 
-func (i *LoggerInteractor) Fork() (forkedInteractor *LoggerInteractor) {
+func (i *Interactor) Fork() (forkedInteractor *Interactor) {
 	forkedInteractor = New()
 	forkedInteractor.repositories = i.repositories
 	forkedInteractor.logLevel = i.logLevel

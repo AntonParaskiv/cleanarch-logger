@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func (i *LoggerInteractor) log(level int, message string) {
+func (i *Interactor) log(level int, message string) {
 	if i.logLevel&level == level {
 		timeNow := time.Now()
 		for _, repo := range i.repositories {
@@ -20,47 +20,47 @@ func (i *LoggerInteractor) log(level int, message string) {
 	return
 }
 
-func (i *LoggerInteractor) logf(level int, format string, a ...interface{}) {
+func (i *Interactor) logf(level int, format string, a ...interface{}) {
 	message := fmt.Sprintf(format, a...)
 	i.log(level, message)
 }
 
-func (i *LoggerInteractor) Debug(message string) {
+func (i *Interactor) Debug(message string) {
 	i.log(domain.LogLevelDebug, message)
 }
 
-func (i *LoggerInteractor) Debugf(format string, a ...interface{}) {
+func (i *Interactor) Debugf(format string, a ...interface{}) {
 	i.logf(domain.LogLevelDebug, format, a...)
 }
 
-func (i *LoggerInteractor) Info(message string) {
+func (i *Interactor) Info(message string) {
 	i.log(domain.LogLevelInfo, message)
 }
 
-func (i *LoggerInteractor) Infof(format string, a ...interface{}) {
+func (i *Interactor) Infof(format string, a ...interface{}) {
 	i.logf(domain.LogLevelInfo, format, a...)
 }
 
-func (i *LoggerInteractor) Warn(message string) {
+func (i *Interactor) Warn(message string) {
 	i.log(domain.LogLevelWarn, message)
 }
 
-func (i *LoggerInteractor) Warnf(format string, a ...interface{}) {
+func (i *Interactor) Warnf(format string, a ...interface{}) {
 	i.logf(domain.LogLevelWarn, format, a...)
 }
 
-func (i *LoggerInteractor) Error(message string) {
+func (i *Interactor) Error(message string) {
 	i.log(domain.LogLevelError, message)
 }
 
-func (i *LoggerInteractor) Errorf(format string, a ...interface{}) {
+func (i *Interactor) Errorf(format string, a ...interface{}) {
 	i.logf(domain.LogLevelError, format, a...)
 }
 
-func (i *LoggerInteractor) Fatal(message string) {
+func (i *Interactor) Fatal(message string) {
 	i.log(domain.LogLevelFatal, message)
 }
 
-func (i *LoggerInteractor) Fatalf(format string, a ...interface{}) {
+func (i *Interactor) Fatalf(format string, a ...interface{}) {
 	i.logf(domain.LogLevelFatal, format, a...)
 }
