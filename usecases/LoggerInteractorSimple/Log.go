@@ -5,52 +5,52 @@ import (
 	"log"
 )
 
-func (i *LoggerInteractor) log(message string) {
+func (i *Interactor) log(message string) {
 	log.Println(message)
 	return
 }
 
-func (i *LoggerInteractor) logf(format string, a ...interface{}) {
+func (i *Interactor) logf(format string, a ...interface{}) {
 	message := fmt.Sprintf(format, a...)
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Debug(message string) {
+func (i *Interactor) Debug(message string) {
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Debugf(format string, a ...interface{}) {
+func (i *Interactor) Debugf(format string, a ...interface{}) {
 	i.logf(format, a...)
 }
 
-func (i *LoggerInteractor) Info(message string) {
+func (i *Interactor) Info(message string) {
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Infof(format string, a ...interface{}) {
+func (i *Interactor) Infof(format string, a ...interface{}) {
 	i.logf(format, a...)
 }
 
-func (i *LoggerInteractor) Warn(message string) {
+func (i *Interactor) Warn(message string) {
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Warnf(format string, a ...interface{}) {
+func (i *Interactor) Warnf(format string, a ...interface{}) {
 	i.logf(format, a...)
 }
 
-func (i *LoggerInteractor) Error(message string) {
+func (i *Interactor) Error(message string) {
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Errorf(format string, a ...interface{}) {
+func (i *Interactor) Errorf(format string, a ...interface{}) {
 	i.logf(format, a...)
 }
 
-func (i *LoggerInteractor) Fatal(message string) {
+func (i *Interactor) Fatal(message string) {
 	i.log(message)
 }
 
-func (i *LoggerInteractor) Fatalf(format string, a ...interface{}) {
+func (i *Interactor) Fatalf(format string, a ...interface{}) {
 	i.logf(format, a...)
 }

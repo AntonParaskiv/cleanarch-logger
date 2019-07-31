@@ -1,9 +1,9 @@
 package LoggerInteractorSimple
 
-type LoggerInteractor struct {
+type Interactor struct {
 }
 
-func New() (i *LoggerInteractor) {
-	i = new(LoggerInteractor)
+func New() (i *Interactor) {
+	i = new(Interactor)
 	return
 }
