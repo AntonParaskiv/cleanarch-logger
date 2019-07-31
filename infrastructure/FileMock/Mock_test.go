@@ -65,7 +65,7 @@ func TestMock_Write(t *testing.T) {
 			wantErr: true,
 			wantM: &Mock{
 				Buffer:            []byte{},
-				SimulateErrorFlag: false,
+				simulateErrorFlag: false,
 			},
 		},
 	}
@@ -75,7 +75,7 @@ func TestMock_Write(t *testing.T) {
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
 				Buffer:            tt.fields.Buffer,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			gotN, err := m.Write(tt.args.b)
 			if (err != nil) != tt.wantErr {
@@ -118,7 +118,7 @@ func TestMock_Fd(t *testing.T) {
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
 				Buffer:            tt.fields.Buffer,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if got := m.Fd(); got != tt.want {
 				t.Errorf("Mock.Fd() = %v, want %v", got, tt.want)
@@ -145,7 +145,7 @@ func TestMock_SimulateError(t *testing.T) {
 				SimulateErrorFlag: false,
 			},
 			wantM: &Mock{
-				SimulateErrorFlag: true,
+				simulateErrorFlag: true,
 			},
 		},
 	}
@@ -155,7 +155,7 @@ func TestMock_SimulateError(t *testing.T) {
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
 				Buffer:            tt.fields.Buffer,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if got := m.SimulateError(); !reflect.DeepEqual(got, tt.wantM) {
 				t.Errorf("Mock.SimulateError() = %v, want %v", got, tt.wantM)
@@ -186,11 +186,10 @@ func TestMock_Error(t *testing.T) {
 				SimulateErrorFlag: true,
 			},
 			wantM: &Mock{
-				SimulateErrorFlag: false,
+				simulateErrorFlag: false,
 			},
 			wantErr: true,
 		},
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -198,7 +197,7 @@ func TestMock_Error(t *testing.T) {
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
 				Buffer:            tt.fields.Buffer,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if err := m.Error(); (err != nil) != tt.wantErr {
 				t.Errorf("Mock.Error() error = %v, wantErr %v", err, tt.wantErr)

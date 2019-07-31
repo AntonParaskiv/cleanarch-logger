@@ -8,7 +8,7 @@ type Mock struct {
 	Fdescr            uintptr
 	Name              string
 	Buffer            []byte
-	SimulateErrorFlag bool
+	simulateErrorFlag bool
 }
 
 func New() (m *Mock) {
@@ -17,7 +17,7 @@ func New() (m *Mock) {
 }
 
 func (m *Mock) Write(b []byte) (n int, err error) {
-	if m.SimulateErrorFlag {
+	if m.simulateErrorFlag {
 		return 0, m.Error()
 	}
 
@@ -31,12 +31,12 @@ func (m *Mock) Fd() uintptr {
 }
 
 func (m *Mock) SimulateError() *Mock {
-	m.SimulateErrorFlag = true
+	m.simulateErrorFlag = true
 	return m
 }
 
 func (m *Mock) Error() (err error) {
-	m.SimulateErrorFlag = false
+	m.simulateErrorFlag = false
 	err = errors.Errorf(ErrorSimulated)
 	return
 }

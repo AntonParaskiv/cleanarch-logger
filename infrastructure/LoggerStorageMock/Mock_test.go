@@ -60,7 +60,7 @@ func TestMock_Send(t *testing.T) {
 			wantErr: true,
 			wantM: &Mock{
 				Message:           "",
-				SimulateErrorFlag: false,
+				simulateErrorFlag: false,
 			},
 		},
 	}
@@ -68,7 +68,7 @@ func TestMock_Send(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
 				Message:           tt.fields.Message,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if err := m.Send(tt.args.message); (err != nil) != tt.wantErr {
 				t.Errorf("Mock.Send() error = %v, wantErr %v", err, tt.wantErr)
@@ -96,7 +96,7 @@ func TestMock_SimulateError(t *testing.T) {
 				SimulateErrorFlag: false,
 			},
 			wantM: &Mock{
-				SimulateErrorFlag: true,
+				simulateErrorFlag: true,
 			},
 		},
 	}
@@ -104,7 +104,7 @@ func TestMock_SimulateError(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
 				Message:           tt.fields.Message,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if got := m.SimulateError(); !reflect.DeepEqual(got, tt.wantM) {
 				t.Errorf("Mock.SimulateError() = %v, want %v", got, tt.wantM)
@@ -133,7 +133,7 @@ func TestMock_Error(t *testing.T) {
 				SimulateErrorFlag: true,
 			},
 			wantM: &Mock{
-				SimulateErrorFlag: false,
+				simulateErrorFlag: false,
 			},
 			wantErr: true,
 		},
@@ -143,7 +143,7 @@ func TestMock_Error(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
 				Message:           tt.fields.Message,
-				SimulateErrorFlag: tt.fields.SimulateErrorFlag,
+				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if err := m.Error(); (err != nil) != tt.wantErr {
 				t.Errorf("Mock.Error() error = %v, wantErr %v", err, tt.wantErr)

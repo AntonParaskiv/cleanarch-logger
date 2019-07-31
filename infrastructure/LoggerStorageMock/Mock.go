@@ -6,7 +6,7 @@ const ErrorSimulated = "simulated error"
 
 type Mock struct {
 	Message           string
-	SimulateErrorFlag bool
+	simulateErrorFlag bool
 }
 
 func New() (m *Mock) {
@@ -15,7 +15,7 @@ func New() (m *Mock) {
 }
 
 func (m *Mock) Send(message string) (err error) {
-	if m.SimulateErrorFlag {
+	if m.simulateErrorFlag {
 		return m.Error()
 	}
 
@@ -24,12 +24,12 @@ func (m *Mock) Send(message string) (err error) {
 }
 
 func (m *Mock) SimulateError() *Mock {
-	m.SimulateErrorFlag = true
+	m.simulateErrorFlag = true
 	return m
 }
 
 func (m *Mock) Error() (err error) {
-	m.SimulateErrorFlag = false
+	m.simulateErrorFlag = false
 	err = errors.Errorf(ErrorSimulated)
 	return
 }
