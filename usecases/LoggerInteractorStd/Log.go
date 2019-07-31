@@ -1,12 +1,11 @@
-package LoggerInteractorSimple
+package LoggerInteractorStd
 
 import (
 	"fmt"
-	"log"
 )
 
 func (i *Interactor) log(message string) {
-	log.Println(message)
+	i.logger.Println(message)
 	return
 }
 
