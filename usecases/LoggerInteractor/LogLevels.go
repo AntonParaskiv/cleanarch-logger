@@ -1,61 +1,61 @@
 package LoggerInteractor
 
 import (
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
+	"github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 )
 
 func (i *Interactor) SetLogLevelNone() *Interactor {
-	i.logLevel = domain.LogLevelNone
+	i.logLevel = LoggerDomain.LogLevelNone
 	return i
 }
 
 func (i *Interactor) AddLogLevelDebug() *Interactor {
-	i.logLevel += domain.LogLevelDebug
+	i.logLevel = i.logLevel | LoggerDomain.LogLevelDebug
 	return i
 }
 
 func (i *Interactor) AddLogLevelInfo() *Interactor {
-	i.logLevel += domain.LogLevelInfo
+	i.logLevel = i.logLevel | LoggerDomain.LogLevelInfo
 	return i
 }
 
 func (i *Interactor) AddLogLevelWarn() *Interactor {
-	i.logLevel += domain.LogLevelWarn
+	i.logLevel = i.logLevel | LoggerDomain.LogLevelWarn
 	return i
 }
 
 func (i *Interactor) AddLogLevelError() *Interactor {
-	i.logLevel += domain.LogLevelError
+	i.logLevel = i.logLevel | LoggerDomain.LogLevelError
 	return i
 }
 
 func (i *Interactor) AddLogLevelFatal() *Interactor {
-	i.logLevel += domain.LogLevelFatal
+	i.logLevel = i.logLevel | LoggerDomain.LogLevelFatal
 	return i
 }
 
 func (i *Interactor) RemoveLogLevelDebug() *Interactor {
-	i.logLevel -= domain.LogLevelDebug
+	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelDebug
 	return i
 }
 
 func (i *Interactor) RemoveLogLevelInfo() *Interactor {
-	i.logLevel -= domain.LogLevelInfo
+	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelInfo
 	return i
 }
 
 func (i *Interactor) RemoveLogLevelWarn() *Interactor {
-	i.logLevel -= domain.LogLevelWarn
+	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelWarn
 	return i
 }
 
 func (i *Interactor) RemoveLogLevelError() *Interactor {
-	i.logLevel -= domain.LogLevelError
+	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelError
 	return i
 }
 
 func (i *Interactor) RemoveLogLevelFatal() *Interactor {
-	i.logLevel -= domain.LogLevelFatal
+	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelFatal
 	return i
 }
 

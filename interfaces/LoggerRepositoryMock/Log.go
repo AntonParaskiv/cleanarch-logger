@@ -7,8 +7,8 @@ func (m *Mock) Log(level int, time time.Time, message string) (err error) {
 		return m.Error()
 	}
 
-	m.logLevel = level
-	m.logTime = time
-	m.message = message
+	m.LogLevel = level
+	m.LogTime = time
+	m.Message = message
 	return
 }

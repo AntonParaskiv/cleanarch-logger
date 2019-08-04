@@ -34,9 +34,9 @@ func TestMock_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantM: &Mock{
-				logLevel: 100,
-				logTime:  time.Date(2019, 07, 30, 17, 23, 46, 0, time.UTC),
-				message:  "TestMessage",
+				LogLevel: 100,
+				LogTime:  time.Date(2019, 07, 30, 17, 23, 46, 0, time.UTC),
+				Message:  "TestMessage",
 			},
 		},
 		{
@@ -56,10 +56,10 @@ func TestMock_Log(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
-				name:              tt.fields.name,
-				logLevel:          tt.fields.logLevel,
-				logTime:           tt.fields.logTime,
-				message:           tt.fields.message,
+				Name:              tt.fields.name,
+				LogLevel:          tt.fields.logLevel,
+				LogTime:           tt.fields.logTime,
+				Message:           tt.fields.message,
 				simulateErrorFlag: tt.fields.simulateErrorFlag,
 			}
 			if err := m.Log(tt.args.level, tt.args.time, tt.args.message); (err != nil) != tt.wantErr {

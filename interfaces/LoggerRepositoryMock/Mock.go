@@ -8,10 +8,10 @@ import (
 const ErrorSimulated = "simulated error"
 
 type Mock struct {
-	name              string
-	logLevel          int
-	logTime           time.Time
-	message           string
+	Name              string
+	LogLevel          int
+	LogTime           time.Time
+	Message           string
 	simulateErrorFlag bool
 }
 
@@ -32,5 +32,5 @@ func (m *Mock) Error() (err error) {
 }
 
 func (m *Mock) GetName() (name string) {
-	return m.name
+	return m.Name
 }
