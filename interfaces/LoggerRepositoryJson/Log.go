@@ -1,48 +1,83 @@
 package LoggerRepositoryJson
 
 import (
-	"encoding/json"
 	"github.com/pkg/errors"
 	"strings"
 	"time"
 )
 
-type LogMessage struct {
-	Level     string `json:"level,omitempty"`
-	Timestamp string `json:"timestamp,omitempty"`
-	Message   string `json:"message,omitempty"`
+func (r *Repository) Log(level int, time time.Time, message string) (err error) {
+	if !r.isMessageLevelMatchRepositoryLevel(level) {
+		return
+	}
+
+	message, err = r.prepareMessage(message, level, time)
+	if err != nil {
+		err = errors.Errorf("prepare message failed: %s", err.Error())
+		return
+	}
+
+	if err = r.sendMessage(message); err != nil {
+		err = errors.Errorf("send message failed: %s", err.Error())
+		return
+	}
+
+	return
 }
 
-func (r *Repository) Log(level int, time time.Time, message string) (err error) {
+func (r *Repository) isMessageLevelMatchRepositoryLevel(level int) (isMatch bool) {
 	if r.logLevel&level == level {
-		logMessage := LogMessage{}
+		isMatch = true
+	}
+	return
+}
 
-		message = strings.Trim(message, " \t\r\n")
+func (r *Repository) prepareMessage(message string, level int, time time.Time) (string, error) {
+	message = r.clearMessageGarbage(message)
+	message = r.addRepositoryPrefix(message)
+	logLevelPrefix := r.getLogLevelPrefix(level)
+	timePrefix := r.getTimePrefix(time)
 
-		if r.prefix != "" {
-			message = r.prefix + " " + message
-		}
-		logMessage.Message = message
+	logMessage := NewLogMessage(message, logLevelPrefix, timePrefix)
+	jsn, err := logMessage.MakeJson()
+	if err != nil {
+		err = errors.Errorf("make json failed: %s", err.Error())
+		return "", err
+	}
 
-		if logLevelTitle[level] != "" {
-			logMessage.Level = logLevelTitle[level]
-		}
+	return jsn, err
+}
 
-		if r.timeFormat != "" {
-			logMessage.Timestamp = time.Format(r.timeFormat)
-		}
+func (r *Repository) sendMessage(message string) (err error) {
+	if err = r.storage.Send(message); err != nil {
+		err = errors.Errorf("storage send failed: %s", err.Error())
+		return
+	}
+	return
+}
 
-		var jsn []byte
-		jsn, err = json.Marshal(logMessage)
-		if err != nil {
-			err = errors.Errorf("message marshal failed: %s", err.Error())
-			return
-		}
+func (r *Repository) clearMessageGarbage(message string) string {
+	message = strings.Trim(message, " \t\r\n")
+	return message
+}
 
-		if err = r.storage.Send(string(jsn) + "\n"); err != nil {
-			err = errors.Errorf("log storage send failed: %s", err.Error())
-			return
-		}
+func (r *Repository) addRepositoryPrefix(message string) string {
+	if r.prefix != "" {
+		message = r.prefix + " " + message
+	}
+	return message
+}
+
+func (r *Repository) getLogLevelPrefix(level int) (logLevelPrefix string) {
+	if logLevelTitle[level] != "" {
+		logLevelPrefix = logLevelTitle[level]
+	}
+	return logLevelPrefix
+}
+
+func (r *Repository) getTimePrefix(time time.Time) (timePrefix string) {
+	if r.timeFormat != "" {
+		timePrefix = time.Format(r.timeFormat)
 	}
 	return
 }
