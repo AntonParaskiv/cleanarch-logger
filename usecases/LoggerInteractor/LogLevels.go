@@ -4,61 +4,6 @@ import (
 	"github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 )
 
-func (i *Interactor) SetLogLevelNone() *Interactor {
-	i.logLevel = LoggerDomain.LogLevelNone
-	return i
-}
-
-func (i *Interactor) AddLogLevelDebug() *Interactor {
-	i.logLevel = i.logLevel | LoggerDomain.LogLevelDebug
-	return i
-}
-
-func (i *Interactor) AddLogLevelInfo() *Interactor {
-	i.logLevel = i.logLevel | LoggerDomain.LogLevelInfo
-	return i
-}
-
-func (i *Interactor) AddLogLevelWarn() *Interactor {
-	i.logLevel = i.logLevel | LoggerDomain.LogLevelWarn
-	return i
-}
-
-func (i *Interactor) AddLogLevelError() *Interactor {
-	i.logLevel = i.logLevel | LoggerDomain.LogLevelError
-	return i
-}
-
-func (i *Interactor) AddLogLevelFatal() *Interactor {
-	i.logLevel = i.logLevel | LoggerDomain.LogLevelFatal
-	return i
-}
-
-func (i *Interactor) RemoveLogLevelDebug() *Interactor {
-	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelDebug
-	return i
-}
-
-func (i *Interactor) RemoveLogLevelInfo() *Interactor {
-	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelInfo
-	return i
-}
-
-func (i *Interactor) RemoveLogLevelWarn() *Interactor {
-	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelWarn
-	return i
-}
-
-func (i *Interactor) RemoveLogLevelError() *Interactor {
-	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelError
-	return i
-}
-
-func (i *Interactor) RemoveLogLevelFatal() *Interactor {
-	i.logLevel = i.logLevel &^ LoggerDomain.LogLevelFatal
-	return i
-}
-
 func (i *Interactor) SetLogLevelAll() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelDebug()
@@ -88,5 +33,75 @@ func (i *Interactor) SetLogLevelErrorFatal() *Interactor {
 	i.SetLogLevelNone()
 	i.AddLogLevelError()
 	i.AddLogLevelFatal()
+	return i
+}
+
+func (i *Interactor) SetLogLevelNone() *Interactor {
+	i.setLogLevel(LoggerDomain.LogLevelNone)
+	return i
+}
+
+func (i *Interactor) AddLogLevelDebug() *Interactor {
+	i.addLogLevel(LoggerDomain.LogLevelDebug)
+	return i
+}
+
+func (i *Interactor) AddLogLevelInfo() *Interactor {
+	i.addLogLevel(LoggerDomain.LogLevelInfo)
+	return i
+}
+
+func (i *Interactor) AddLogLevelWarn() *Interactor {
+	i.addLogLevel(LoggerDomain.LogLevelWarn)
+	return i
+}
+
+func (i *Interactor) AddLogLevelError() *Interactor {
+	i.addLogLevel(LoggerDomain.LogLevelError)
+	return i
+}
+
+func (i *Interactor) AddLogLevelFatal() *Interactor {
+	i.addLogLevel(LoggerDomain.LogLevelFatal)
+	return i
+}
+
+func (i *Interactor) RemoveLogLevelDebug() *Interactor {
+	i.removeLogLevel(LoggerDomain.LogLevelDebug)
+	return i
+}
+
+func (i *Interactor) RemoveLogLevelInfo() *Interactor {
+	i.removeLogLevel(LoggerDomain.LogLevelInfo)
+	return i
+}
+
+func (i *Interactor) RemoveLogLevelWarn() *Interactor {
+	i.removeLogLevel(LoggerDomain.LogLevelWarn)
+	return i
+}
+
+func (i *Interactor) RemoveLogLevelError() *Interactor {
+	i.removeLogLevel(LoggerDomain.LogLevelError)
+	return i
+}
+
+func (i *Interactor) RemoveLogLevelFatal() *Interactor {
+	i.removeLogLevel(LoggerDomain.LogLevelFatal)
+	return i
+}
+
+func (i *Interactor) setLogLevel(level int) *Interactor {
+	i.logLevel = level
+	return i
+}
+
+func (i *Interactor) addLogLevel(level int) *Interactor {
+	i.logLevel = i.logLevel | level
+	return i
+}
+
+func (i *Interactor) removeLogLevel(level int) *Interactor {
+	i.logLevel = i.logLevel &^ level
 	return i
 }
