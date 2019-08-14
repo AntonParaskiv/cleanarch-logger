@@ -21,12 +21,11 @@ func New(stream *os.File) (s *Storage) {
 }
 
 func NewFromFileName(fileName string, perm os.FileMode) (storage *Storage, err error) {
-	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND|os.O_CREATE, perm)
+	file, err := openFile(fileName, perm)
 	if err != nil {
 		err = errors.Errorf("open file failed: %s", err.Error())
 		return
 	}
-
 	storage = New(file)
 	return
 }

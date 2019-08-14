@@ -2,7 +2,7 @@ package LoggerDomain
 
 const (
 	LogLevelAllBits = -1        // all bits set 1
-	LogLevelNone    = 0         // 0
+	LogLevelNone    = 0         // all bits set 0
 	_               = 1 << iota // 1
 	_               = 1 << iota // 2
 	LogLevelFatal   = 1 << iota // 4
