@@ -3,12 +3,12 @@ package LoggerRepositoryMock
 import "time"
 
 func (m *Mock) Log(level int, time time.Time, message string) (err error) {
-	if m.simulateErrorFlag {
+	if m.IsSetSimulateError() {
 		return m.Error()
 	}
 
-	m.LogLevel = level
-	m.LogTime = time
-	m.Message = message
+	m.SetLogLevel(level)
+	m.SetLogTime(time)
+	m.SetMessage(message)
 	return
 }

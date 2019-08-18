@@ -13,7 +13,7 @@ func (r *Repository) Log(level int, time time.Time, message string) (err error) 
 
 	message = r.prepareMessage(message, level, time)
 
-	if err = r.sendMessage(message); err != nil {
+	if err = r.sendMessageToStorage(message); err != nil {
 		err = errors.Errorf("send message failed: %s", err.Error())
 		return
 	}
@@ -36,7 +36,7 @@ func (r *Repository) prepareMessage(message string, level int, time time.Time) s
 	return message
 }
 
-func (r *Repository) sendMessage(message string) (err error) {
+func (r *Repository) sendMessageToStorage(message string) (err error) {
 	if err = r.storage.Send(message); err != nil {
 		err = errors.Errorf("storage send failed: %s", err.Error())
 		return
@@ -50,21 +50,21 @@ func (r *Repository) clearMessageGarbage(message string) string {
 }
 
 func (r *Repository) addRepositoryPrefix(message string) string {
-	if r.prefix != "" {
+	if len(r.prefix) > 0 {
 		message = r.prefix + " " + message
 	}
 	return message
 }
 
 func (r *Repository) addLogLevelPrefix(message string, level int) string {
-	if logLevelTitle[level] != "" {
+	if len(logLevelTitle[level]) > 0 {
 		message = logLevelTitle[level] + " " + message
 	}
 	return message
 }
 
 func (r *Repository) addTimePrefix(message string, time time.Time) string {
-	if r.timeFormat != "" {
+	if len(r.timeFormat) > 0 {
 		message = time.Format(r.timeFormat) + " " + message
 	}
 	return message

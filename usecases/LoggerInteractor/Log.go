@@ -2,8 +2,7 @@ package LoggerInteractor
 
 import (
 	"fmt"
-	domain "github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
-	"github.com/pkg/errors"
+	"github.com/AntonParaskiv/cleanarch-logger/domain/LoggerDomain"
 	"time"
 )
 
@@ -28,23 +27,23 @@ func (i *Interactor) Fatalf(format string, a ...interface{}) {
 }
 
 func (i *Interactor) Debug(message string) {
-	i.log(domain.LogLevelDebug, message)
+	i.log(LoggerDomain.LogLevelDebug, message)
 }
 
 func (i *Interactor) Info(message string) {
-	i.log(domain.LogLevelInfo, message)
+	i.log(LoggerDomain.LogLevelInfo, message)
 }
 
 func (i *Interactor) Warn(message string) {
-	i.log(domain.LogLevelWarn, message)
+	i.log(LoggerDomain.LogLevelWarn, message)
 }
 
 func (i *Interactor) Error(message string) {
-	i.log(domain.LogLevelError, message)
+	i.log(LoggerDomain.LogLevelError, message)
 }
 
 func (i *Interactor) Fatal(message string) {
-	i.log(domain.LogLevelFatal, message)
+	i.log(LoggerDomain.LogLevelFatal, message)
 }
 
 func (i *Interactor) formatMessage(format string, a ...interface{}) (message string) {
@@ -62,7 +61,7 @@ func (i *Interactor) log(level int, message string) {
 	}
 
 	timeNow := i.getTimeNow()
-	i.logToRepositories(message, level, timeNow)
+	i.sendToRepositories(message, level, timeNow)
 	return
 }
 
@@ -75,13 +74,4 @@ func (i *Interactor) isMessageLevelMatchInteractorLevel(level int) (isMatch bool
 
 func (i *Interactor) getTimeNow() time.Time {
 	return time.Now()
-}
-
-func (i *Interactor) logToRepositories(message string, level int, time time.Time) {
-	for _, repository := range i.repositories {
-		if err := repository.Log(level, time, message); err != nil {
-			err = errors.Errorf("%s %s", repository.GetName(), err.Error())
-			fmt.Println(err)
-		}
-	}
 }

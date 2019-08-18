@@ -26,15 +26,20 @@ type Repository struct {
 }
 
 func New(storage Storage) (r *Repository) {
-	r = new(Repository)
-	r.storage = storage
-	r.SetLogLevelNone()
-	r.timeFormat = time.Stamp
+	r = new(Repository).
+		setStorage(storage).
+		SetLogLevelNone().
+		SetTimeFormat(time.Stamp)
 	return
 }
 
 func (r *Repository) SetName(name string) *Repository {
 	r.name = name
+	return r
+}
+
+func (r *Repository) setStorage(storage Storage) *Repository {
+	r.storage = storage
 	return r
 }
 

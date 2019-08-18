@@ -24,24 +24,16 @@ func TestInteractor_AddRepository(t *testing.T) {
 			name: "Success",
 			fields: fields{
 				repositories: map[string]Repository{
-					"Repository1": &LoggerRepositoryMock.Mock{
-						Name: "Repository1",
-					},
+					"Repository1": LoggerRepositoryMock.New().SetName("Repository1"),
 				},
 			},
 			args: args{
-				repository: &LoggerRepositoryMock.Mock{
-					Name: "Repository2",
-				},
+				repository: LoggerRepositoryMock.New().SetName("Repository2"),
 			},
 			want: &Interactor{
 				repositories: map[string]Repository{
-					"Repository1": &LoggerRepositoryMock.Mock{
-						Name: "Repository1",
-					},
-					"Repository2": &LoggerRepositoryMock.Mock{
-						Name: "Repository2",
-					},
+					"Repository1": LoggerRepositoryMock.New().SetName("Repository1"),
+					"Repository2": LoggerRepositoryMock.New().SetName("Repository2"),
 				},
 			},
 		},
@@ -73,12 +65,8 @@ func TestInteractor_ClearRepositories(t *testing.T) {
 			name: "Success",
 			fields: fields{
 				repositories: map[string]Repository{
-					"Repository1": &LoggerRepositoryMock.Mock{
-						Name: "Repository1",
-					},
-					"Repository2": &LoggerRepositoryMock.Mock{
-						Name: "Repository2",
-					},
+					"Repository1": LoggerRepositoryMock.New().SetName("Repository1"),
+					"Repository2": LoggerRepositoryMock.New().SetName("Repository2"),
 				},
 			},
 			want: &Interactor{

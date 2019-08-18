@@ -51,10 +51,10 @@ func TestMock_SimulateError(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
-				Name:              tt.fields.name,
-				LogLevel:          tt.fields.logLevel,
-				LogTime:           tt.fields.logTime,
-				Message:           tt.fields.message,
+				name:              tt.fields.name,
+				logLevel:          tt.fields.logLevel,
+				logTime:           tt.fields.logTime,
+				message:           tt.fields.message,
 				simulateErrorFlag: tt.fields.simulateErrorFlag,
 			}
 			if got := m.SimulateError(); !reflect.DeepEqual(got, tt.wantM) {
@@ -95,10 +95,10 @@ func TestMock_Error(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
-				Name:              tt.fields.name,
-				LogLevel:          tt.fields.logLevel,
-				LogTime:           tt.fields.logTime,
-				Message:           tt.fields.message,
+				name:              tt.fields.name,
+				logLevel:          tt.fields.logLevel,
+				logTime:           tt.fields.logTime,
+				message:           tt.fields.message,
 				simulateErrorFlag: tt.fields.simulateErrorFlag,
 			}
 			if err := m.Error(); (err != nil) != tt.wantErr {
@@ -135,10 +135,10 @@ func TestMock_GetName(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Mock{
-				Name:              tt.fields.name,
-				LogLevel:          tt.fields.logLevel,
-				LogTime:           tt.fields.logTime,
-				Message:           tt.fields.message,
+				name:              tt.fields.name,
+				logLevel:          tt.fields.logLevel,
+				logTime:           tt.fields.logTime,
+				message:           tt.fields.message,
 				simulateErrorFlag: tt.fields.simulateErrorFlag,
 			}
 			if gotName := m.GetName(); gotName != tt.wantName {

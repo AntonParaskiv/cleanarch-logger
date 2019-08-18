@@ -29,9 +29,7 @@ func TestStorage_Send(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantStorage: &Storage{
-				stream: &FileMock.Mock{
-					Buffer: []byte("TestMessage"),
-				},
+				stream: FileMock.New().SetBuffer([]byte("TestMessage")),
 			},
 		},
 		{

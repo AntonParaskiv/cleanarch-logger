@@ -16,14 +16,14 @@ type Interactor struct {
 
 func New() (i *Interactor) {
 	i = new(Interactor)
-	i.repositories = make(map[string]Repository)
+	i.ClearRepositories()
 	i.SetLogLevelNone()
 	return
 }
 
 func (i *Interactor) Fork() (forkedInteractor *Interactor) {
 	forkedInteractor = New()
-	forkedInteractor.repositories = i.repositories
-	forkedInteractor.logLevel = i.logLevel
+	forkedInteractor.setRepositories(i.getRepositories())
+	forkedInteractor.setLogLevel(i.getLogLevel())
 	return
 }

@@ -15,17 +15,22 @@ type Storage struct {
 }
 
 func New(stream *os.File) (s *Storage) {
-	s = new(Storage)
-	s.stream = stream
+	s = new(Storage).
+		setStream(stream)
 	return
 }
 
 func NewFromFileName(fileName string, perm os.FileMode) (storage *Storage, err error) {
-	file, err := openFile(fileName, perm)
+	fileStream, err := openFile(fileName, perm)
 	if err != nil {
 		err = errors.Errorf("open file failed: %s", err.Error())
 		return
 	}
-	storage = New(file)
+	storage = New(fileStream)
 	return
+}
+
+func (s *Storage) setStream(stream *os.File) *Storage {
+	s.stream = stream
+	return s
 }

@@ -22,17 +22,17 @@ func compareRepositoryMock(mocks map[string]*LoggerRepositoryMock.Mock, wantMock
 			return
 		}
 
-		if mock.LogLevel != wantMock.LogLevel {
-			err = errors.Errorf("LogLevel = %v, want %v", mock.LogLevel, wantMock.LogLevel)
+		if mock.GetLogLevel() != wantMock.GetLogLevel() {
+			err = errors.Errorf("LogLevel = %v, want %v", mock.GetLogLevel(), wantMock.GetLogLevel())
 			return
 		}
-		if mock.Message != wantMock.Message {
-			err = errors.Errorf("Message = %v, want %v", mock.Message, wantMock.Message)
+		if mock.GetMessage() != wantMock.GetMessage() {
+			err = errors.Errorf("Message = %v, want %v", mock.GetMessage(), wantMock.GetMessage())
 			return
 		}
-		if mock.LogTime != (time.Time{}) {
-			if mock.LogTime.Before(timeStart) || mock.LogTime.After(timeStop) {
-				err = errors.Errorf("LogTime = %v is not match interval, want %v - %v", mock.LogTime.String(), timeStart.String(), timeStop.String())
+		if mock.GetLogTime() != (time.Time{}) {
+			if mock.GetLogTime().Before(timeStart) || mock.GetLogTime().After(timeStop) {
+				err = errors.Errorf("LogTime = %v is not match interval, want %v - %v", mock.GetLogTime().String(), timeStart.String(), timeStop.String())
 				return
 			}
 		}
@@ -86,10 +86,7 @@ func TestInteractor_log(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelAllBits,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelAllBits).SetMessage("TestMessage"),
 			},
 		},
 		{
@@ -123,15 +120,9 @@ func TestInteractor_log(t *testing.T) {
 				"repository3": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelAllBits,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelAllBits).SetMessage("TestMessage"),
 				"repository2": LoggerRepositoryMock.New(),
-				"repository3": {
-					LogLevel: LoggerDomain.LogLevelAllBits,
-					Message:  "TestMessage",
-				},
+				"repository3": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelAllBits).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -190,10 +181,7 @@ func TestInteractor_logf(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelAllBits,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelAllBits).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -246,10 +234,7 @@ func TestInteractor_Debug(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelDebug,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelDebug).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -306,10 +291,7 @@ func TestInteractor_Debugf(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelDebug,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelDebug).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -362,10 +344,7 @@ func TestInteractor_Info(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelInfo,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelInfo).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -422,10 +401,7 @@ func TestInteractor_Infof(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelInfo,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelInfo).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -478,10 +454,7 @@ func TestInteractor_Warn(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelWarn,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelWarn).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -538,10 +511,7 @@ func TestInteractor_Warnf(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelWarn,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelWarn).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -594,10 +564,7 @@ func TestInteractor_Error(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelError,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelError).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -654,10 +621,7 @@ func TestInteractor_Errorf(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelError,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelError).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -710,10 +674,7 @@ func TestInteractor_Fatal(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelFatal,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelFatal).SetMessage("TestMessage"),
 			},
 		},
 	}
@@ -770,10 +731,7 @@ func TestInteractor_Fatalf(t *testing.T) {
 				"repository1": LoggerRepositoryMock.New(),
 			},
 			wantRepositoryMocks: map[string]*LoggerRepositoryMock.Mock{
-				"repository1": {
-					LogLevel: LoggerDomain.LogLevelFatal,
-					Message:  "TestMessage",
-				},
+				"repository1": LoggerRepositoryMock.New().SetLogLevel(LoggerDomain.LogLevelFatal).SetMessage("TestMessage"),
 			},
 		},
 	}

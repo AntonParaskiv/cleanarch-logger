@@ -7,7 +7,7 @@ const ErrorSimulated = "simulated error"
 type Mock struct {
 	Fdescr            uintptr
 	Name              string
-	Buffer            []byte
+	buffer            []byte
 	simulateErrorFlag bool
 }
 
@@ -17,12 +17,27 @@ func New() (m *Mock) {
 }
 
 func (m *Mock) Write(b []byte) (n int, err error) {
-	if m.simulateErrorFlag {
+	if m.IsSetSimulateError() {
 		return 0, m.Error()
 	}
 
-	m.Buffer = b
-	n = len(b)
+	m.SetBuffer(b)
+	n = m.BufferLen()
+	return
+}
+
+func (m *Mock) SetBuffer(b []byte) *Mock {
+	m.buffer = b
+	return m
+}
+
+func (m *Mock) Buffer() (b []byte) {
+	b = m.buffer
+	return
+}
+
+func (m *Mock) BufferLen() (bufferLen int) {
+	bufferLen = len(m.buffer)
 	return
 }
 
@@ -33,6 +48,10 @@ func (m *Mock) Fd() uintptr {
 func (m *Mock) SimulateError() *Mock {
 	m.simulateErrorFlag = true
 	return m
+}
+
+func (m *Mock) IsSetSimulateError() (IsSetSimulateError bool) {
+	return m.simulateErrorFlag
 }
 
 func (m *Mock) Error() (err error) {

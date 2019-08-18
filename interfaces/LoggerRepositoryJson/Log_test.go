@@ -43,9 +43,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"message":"TestMessage"}` + "\n",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(`{"message":"TestMessage"}` + "\n"),
 				logLevel: LoggerDomain.LogLevelAllBits,
 			},
 		},
@@ -63,9 +61,7 @@ func TestRepository_Log(t *testing.T) {
 				message: " \t\r\nTestMessage \t\r\n",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"message":"TestMessage"}` + "\n",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(`{"message":"TestMessage"}` + "\n"),
 				logLevel: LoggerDomain.LogLevelAllBits,
 			},
 		},
@@ -83,9 +79,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"message":"WithPrefix TestMessage"}` + "\n",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(`{"message":"WithPrefix TestMessage"}` + "\n"),
 				logLevel: LoggerDomain.LogLevelAllBits,
 				prefix:   "WithPrefix",
 			},
@@ -104,9 +98,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"level":"` + logLevelTitle[LoggerDomain.LogLevelInfo] + `","message":"TestMessage"}` + "\n",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(`{"level":"` + logLevelTitle[LoggerDomain.LogLevelInfo] + `","message":"TestMessage"}` + "\n"),
 				logLevel: LoggerDomain.LogLevelAllBits,
 			},
 		},
@@ -123,9 +115,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"timestamp":"Tuesday, 30-Jul-19 17:23:46 UTC","message":"TestMessage"}` + "\n",
-				},
+				storage:    LoggerStorageMock.New().SetMessage(`{"timestamp":"Tuesday, 30-Jul-19 17:23:46 UTC","message":"TestMessage"}` + "\n"),
 				logLevel:   LoggerDomain.LogLevelAllBits,
 				timeFormat: time.RFC850,
 			},
@@ -144,9 +134,7 @@ func TestRepository_Log(t *testing.T) {
 				message: " \t\r\nTestMessage \t\r\n",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: `{"level":"` + logLevelTitle[LoggerDomain.LogLevelInfo] + `","timestamp":"Tuesday, 30-Jul-19 17:23:46 UTC","message":"WithPrefix TestMessage"}` + "\n",
-				},
+				storage:    LoggerStorageMock.New().SetMessage(`{"level":"` + logLevelTitle[LoggerDomain.LogLevelInfo] + `","timestamp":"Tuesday, 30-Jul-19 17:23:46 UTC","message":"WithPrefix TestMessage"}` + "\n"),
 				logLevel:   LoggerDomain.LogLevelAllBits,
 				prefix:     "WithPrefix",
 				timeFormat: time.RFC850,
@@ -166,9 +154,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: "",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(""),
 				logLevel: LoggerDomain.LogLevelError,
 			},
 		},
@@ -186,9 +172,7 @@ func TestRepository_Log(t *testing.T) {
 				message: "TestMessage",
 			},
 			wantR: &Repository{
-				storage: &LoggerStorageMock.Mock{
-					Message: "",
-				},
+				storage:  LoggerStorageMock.New().SetMessage(""),
 				logLevel: LoggerDomain.LogLevelAllBits,
 			},
 			wantErr: true,

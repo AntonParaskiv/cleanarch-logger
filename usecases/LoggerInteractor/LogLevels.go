@@ -96,6 +96,10 @@ func (i *Interactor) setLogLevel(level int) *Interactor {
 	return i
 }
 
+func (i *Interactor) getLogLevel() (level int) {
+	return i.logLevel
+}
+
 func (i *Interactor) addLogLevel(level int) *Interactor {
 	i.logLevel = i.logLevel | level
 	return i

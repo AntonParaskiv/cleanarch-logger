@@ -49,7 +49,7 @@ func TestMock_Write(t *testing.T) {
 			},
 			wantN: len([]byte("TestMessage")),
 			wantM: &Mock{
-				Buffer: []byte("TestMessage"),
+				buffer: []byte("TestMessage"),
 			},
 		},
 		{
@@ -64,7 +64,7 @@ func TestMock_Write(t *testing.T) {
 			wantN:   0,
 			wantErr: true,
 			wantM: &Mock{
-				Buffer:            []byte{},
+				buffer:            []byte{},
 				simulateErrorFlag: false,
 			},
 		},
@@ -74,7 +74,7 @@ func TestMock_Write(t *testing.T) {
 			m := &Mock{
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
-				Buffer:            tt.fields.Buffer,
+				buffer:            tt.fields.Buffer,
 				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			gotN, err := m.Write(tt.args.b)
@@ -117,7 +117,7 @@ func TestMock_Fd(t *testing.T) {
 			m := &Mock{
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
-				Buffer:            tt.fields.Buffer,
+				buffer:            tt.fields.Buffer,
 				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if got := m.Fd(); got != tt.want {
@@ -154,7 +154,7 @@ func TestMock_SimulateError(t *testing.T) {
 			m := &Mock{
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
-				Buffer:            tt.fields.Buffer,
+				buffer:            tt.fields.Buffer,
 				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if got := m.SimulateError(); !reflect.DeepEqual(got, tt.wantM) {
@@ -196,7 +196,7 @@ func TestMock_Error(t *testing.T) {
 			m := &Mock{
 				Fdescr:            tt.fields.Fdescr,
 				Name:              tt.fields.Name,
-				Buffer:            tt.fields.Buffer,
+				buffer:            tt.fields.Buffer,
 				simulateErrorFlag: tt.fields.SimulateErrorFlag,
 			}
 			if err := m.Error(); (err != nil) != tt.wantErr {

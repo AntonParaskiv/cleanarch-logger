@@ -11,14 +11,23 @@ type Interactor struct {
 
 func New() (i *Interactor) {
 	i = new(Interactor)
-	i.logger = log.New(os.Stdout, "", log.LstdFlags)
+	i.SetLogger(nil)
 	return
 }
 
 func (i *Interactor) SetLogger(logger *log.Logger) *Interactor {
 	if logger == nil {
-		logger = log.New(os.Stdout, "", log.LstdFlags)
+		logger = i.makeStdLogger()
 	}
-	i.logger = logger
+	i.setLogger(logger)
 	return i
+}
+
+func (i *Interactor) makeStdLogger() (logger *log.Logger) {
+	logger = log.New(os.Stdout, "", log.LstdFlags)
+	return
+}
+
+func (i *Interactor) setLogger(logger *log.Logger) {
+	i.logger = logger
 }
